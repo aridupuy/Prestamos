@@ -73,7 +73,6 @@ class Controller_prestamo extends Controller {
             
 
     public function prestamo_create_post($variables){
-        var_dump($variables);
         if(isset($variables['id_cliente'])){
             $cliente=new Cliente();
             $cliente->get($variables['id_cliente']);
