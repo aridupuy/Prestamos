@@ -1,0 +1,4 @@
+// Coloque su configuración en este archivo para sobrescribir la configuración predeterminada y de usuario.
+{
+        "php.validate.executablePath": "C:\\wamp64\\bin\\php\\php7.0.10\\php.exe"
+}

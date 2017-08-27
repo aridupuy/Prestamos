@@ -1,0 +1,42 @@
+<form id="miFormulario">
+    <page>
+        <header>
+            <title>Nuevo Cliente</title>
+        </header>
+        <div>
+            <h3 class="col-lg-offset-1">Nuevo cliente</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="row col-lg-offset-1">
+                <div class="col-sm-12">
+                    <div class="row col-lg-5 margin-left"> <span>Nombre</span><input class="form-control col-lg-5" type="text" name="Nombre" id="Nombre" placeholder="Nombre"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Apellido</span><input class="form-control col-lg-5" type="text" name="Apellido" id="Apellido" placeholder="Apellido"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Fecha_nacimiento</span><input class="form-control col-lg-5" type="date" name="Fecha_nacimiento" id="Fecha_nacimiento" placeholder="Fecha_nacimiento"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Documento</span><input class="form-control col-lg-5" type="number" name="Documento" id="Documento" placeholder="Documento"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Direccion</span><input class="form-control col-lg-5" type="text" name="Direccion" id="Direccion" placeholder="Direccion"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Numero</span><input class="form-control col-lg-5" type="number" name="Numero" id="Numero" placeholder="Numero"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Telefono</span><input class="form-control col-lg-5" type="tel" name="Telefono" id="Telefono" placeholder="Telefono"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Celular</span><input class="form-control col-lg-5" type="tel" name="Celular" id="Celular" placeholder="Celular"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Localidad</span><input class="form-control col-lg-5" type="text" name="Localidad" id="Localidad" placeholder="Localidad"></div>
+                    <div class="row col-lg-5 margin-left"> <span>Nacionalidad</span><input class="form-control col-lg-5" type="text" name="Nacionalidad" id="Nacionalidad" placeholder="Nacionalidad"></div>
+                </div>
+            </div>
+            <div class="row col-lg-10 margin-top">
+                <div class="col-sm-offset-5 col-sm-1">
+                    <input type="submit" data-nav="cliente" data-method="crear_post" value="Aceptar" class="btn btn-primary">
+                </div>
+                <div class="col-sm-1 col-sm-offset-2 ">
+                    <input type="button" data-nav="cliente" data-method="home" value="Cancelar" class="btn margin">
+                </div>
+            </div>
+        </div>
+    </page>
+</form>
+<style>
+    .margin-left{
+        margin-left: 1%;
+    }
+    .margin-top{
+        margin-top: 1%;
+    }
+</style>

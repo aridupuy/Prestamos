@@ -1,0 +1,133 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22/04/2017, 22:26:54
+    Author     : ariel
+*/
+#main header{
+    display: flex;
+    max-width: 99%;
+}
+.esconder{
+    display: none;
+}
+.filters{
+    min-width: 75%;
+    max-width: 100%;
+}
+.paginador{
+    min-width: 75%;
+    max-width: 100%;
+}
+
+#datos_cliente div{
+   float: left;
+    width: 70%;
+    font-family: sans-serif;
+}
+
+.descripcion{
+    float: right;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.loggout {
+    float: right !important;
+    text-align: center;
+    vertical-align: middle;
+    display: block !important;
+    margin-top: -1%;
+    font-size: 136% !important;
+}
+.usuario{
+    float: right !important;
+    text-align: center;
+    vertical-align: middle;
+    display: block !important;
+    margin-top: -1%;
+    font-size: 136% !important;
+    margin-right: 7%;
+}
+.usuario>span{
+    margin-left: 14%;
+    text-transform: capitalize;
+    margin-right: 22%;
+}
+.teatro{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+.teatro i {
+    padding: 80px;
+    color: rgb(79, 163, 212);
+    display: block;
+}
+html {
+    height: 100%;
+}
+.body {
+    background-color: none!important;
+    font-size: 14px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0px;
+    height: 100%;
+}
+nav {
+    background-color: rgb(6, 90, 110);
+    color: #f0f0f0;
+    min-height: 32px !important;
+    text-align: center;
+    display: block;
+    vertical-align: middle;
+    width: 100%;
+    border-bottom: 1px solid #7D7D7D;
+    top: 0;
+    height: 32px;
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.04), 0 4px 15px 0 rgba(0, 0, 0, 0.04);
+    color: #1d50a2;
+    vertical-align: central;
+}
+.tituloWeb{
+    left: 0px;
+    width: 15%;
+    margin-top: 0.3%;
+}
+.link {
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.link:hover{
+    text-decoration: underline;
+}
+.blue{
+    background-color: #4fa3d4 !important;
+    border-color: rgba(108, 91, 254, 0) !important;
+    color: #ffffff;
+    border-bottom: 2px solid #337ab7 !important;
+}
+.icono-nav{
+    float: left;
+}
+.sidebar_border{
+    height: 100%;
+}
+.footer{
+      line-height: 32px;
+    font-size: 10px;
+    text-align: center;
+    background-color: rgb(79, 163, 212);
+    border-bottom: 2px solid #337ab7;
+    color: #f0f0f0;
+    position: absolute;
+    right: 0;
+    left: 0;
+    position: fixed;
+    bottom: 0;
+
+}
