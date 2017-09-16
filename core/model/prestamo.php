@@ -61,5 +61,17 @@ class prestamo extends Model {
     function set_id_cliente($id_cliente) {
         $this->id_cliente = $id_cliente;
     }
-
+    public static function select_prestamos($variables){
+        $sql = "select A.id_prestamo,B.nombre,B.apellido,B.documento,(select count(*) as coutas from pagare where id_prestamo= A.id_prestamo) as cuotas , A.monto_total , (select round(sum(monto),2) as monto from pagare where id_prestamo= A.id_prestamo) as precio_final from prestamo A 
+                left join cliente B on A.id_cliente=B.id_cliente ";
+        return self::execute_select($sql);
+    }
+    public static function select_ingresos(){
+        $sql="SELECT fecha_move, round(sum(monto),2) as total FROM movimientos A LEFT join pagare B on A.id_pagare = B.id_pagare group by fecha_move";
+        return self::execute_select($sql);
+    }
+    public static function select_egresos(){
+        $sql="SELECT sum(A.monto_total) as total ,B.fecha_contrato FROM prestamo A LEFT JOIN contrato B ON A.id_contrato=B.id_contrato group by fecha_contrato";
+        return self::execute_select($sql);
+    }
 }

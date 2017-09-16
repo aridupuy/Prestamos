@@ -14,6 +14,7 @@
 class Controller_prestamo extends Controller {
     use trait_prestamo;
     public function home($variables){
+        
 //        var_dump($variables);
         $this->view->cargar_vista("views/prestamo.home.html");
         $this->cargar_clientes();
@@ -24,6 +25,8 @@ class Controller_prestamo extends Controller {
         $this->cargar_info_cliente($cliente);
         $this->view->cargar_variables($variables);
         return $this->view;
+        
+        
     }
     public function cargar_clientes(){
         $recordset= Cliente::select();

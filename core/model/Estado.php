@@ -2,10 +2,12 @@
 class Estado extends Model{
     const ACTIVO=1;
     const INACTIVO=2;
-    const SUSPENDIDO=3;
-    const BAJA=4;
-    const AUSENTE=5;
-    const PRESENTE=6;
+    const PENDIENTE=3;
+    const PAGADO=4;
+    const VENCIDO=5;
+    const PARCIAL=6;
+    const NO_ACEPTADO=7;
+    const ACEPTADO=8;
     public static $id_tabla="id_estado";
     public static $prefijo_tabla="";
     public static $secuencia="";

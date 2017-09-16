@@ -4,12 +4,16 @@
 class Table extends View {
 
     const INTERRUPTOR = 'Interruptor';
-    const CLASE_ACTIVADO = 'fa fa-toggle-on green';
-    const CLASE_DESACTIVADO = 'fa fa-toggle-off red';
+    const PAGAR = 'Pagar';
+    const CLASE_ACTIVADO = 'fa fa-toggle-on fa-2x green';
+    const CLASE_DESACTIVADO = 'fa fa-toggle-off fa-2x red';
+    const CLASE_PAGADO = 'fa fa-money fa-2x green';
+    const CLASE_NO_PAGADO= 'fa fa-money fa-2x red';
     const REEMPLAZO_BINARIOS = 'Bin';
     const REEMPLAZO_TRUE = 'True';
     const REEMPLAZO_FALSE = 'False';
     const REEMPLAZO_NO_DETERMINADO = 'No determinado';
+    const CLASE_PROHIBIDO="fa fa-ban fa-2x red";
 
     # Retorna la tabla. Recibe un recordset y un conjunto de acciones
 
@@ -26,7 +30,7 @@ class Table extends View {
         return $this->retornar_tabla_vacia();
     }
 
-    private function construir_desde_recordset(ADORecordSet_postgres8 $registros, $desde_registro, $hasta_registro, $acciones = null) {
+    private function construir_desde_recordset(ADORecordSet_mysqli $registros, $desde_registro, $hasta_registro, $acciones = null) {
         $table = $this->createElement('table');
         $table->setAttribute("class", "table table-bordered table-responsive");
 //        $table->setAttribute("style", "style='overflow-x: auto'");
@@ -38,6 +42,7 @@ class Table extends View {
         if ($registros->rowCount() === 0)
             return $table;
         $tr = $this->createElement('tr');
+        $thead= $this->createElement("thead");
         foreach ($registros->fields as $columna => $valor):
             if (is_numeric($columna)) {
                 $meta = $registros->FetchField($columna);
@@ -60,7 +65,7 @@ class Table extends View {
                         $th = $this->createElement('th');
                         $th->setAttribute("scope", "row");
                         $th->appendChild($this->createTextNode(ucfirst($meta->name)));
-                        $thead= $this->createElement("thead");
+                        
                         $tr->appendChild($th);
                         break;
                 }
@@ -68,7 +73,10 @@ class Table extends View {
         endforeach;
         if ($acciones != null) {
             foreach ($acciones as $accion):
-                $th = $this->createElement('th',"Accion");
+                if(isset($accion['title']))
+                    $th = $this->createElement('th',$accion['title']);
+                else
+                    $th = $this->createElement('th','Accion');
                 $tr->appendChild($th);
                 $tr->appendChild($th);
             endforeach;
@@ -107,7 +115,7 @@ class Table extends View {
                         case 'X':
                             # Si son textos o XML recorto X caracteres
                             $td = $this->createElement('td');
-                            $td->appendChild($this->createTextNode(substr($valor, 0, MAXIMO_CARACTERES_CELDA)));
+                            $td->appendChild($this->createTextNode(substr(ucfirst($valor), 0, MAXIMO_CARACTERES_CELDA)));
                             $td->setAttribute('title', $valor);
                             $tr->appendChild($td);
                             break;
@@ -193,9 +201,13 @@ class Table extends View {
                         $td->setAttribute('value', $registro[$accion['id']]);
                         $td->setAttribute('data','id');
 
-                    if (isset($accion['etiqueta']) AND $accion['etiqueta'] == self::INTERRUPTOR) {
+                    if (isset($accion['etiqueta']) AND $accion['etiqueta'] == self::INTERRUPTOR)  {
                         $td = $this->armar_interruptor($td, $accion, $registro);
-                    } else {
+                    } 
+                    elseif(isset($accion['etiqueta']) AND $accion['etiqueta'] == self::PAGAR){
+                        $td = $this->armar_interruptor_pagar($td, $accion, $registro);
+                    }
+                    else {
                         if (isset($accion['etiqueta'])) {
                             $td->appendChild($this->createTextNode($accion['etiqueta']));
                         }
@@ -244,13 +256,56 @@ class Table extends View {
     private function armar_interruptor($td, $accion, $registro) {
 
         switch ($registro[$accion['campo']]) {
-            case Authstat::ACTIVO:
-                $td->setAttribute('class', self::CLASE_ACTIVADO);
+            case Estado::ACTIVO:
+                $span= $this->createElement("span");
+                $span->setAttribute('class', self::CLASE_ACTIVADO);
+                $td->appendChild($span);
                 $td->setAttribute('title', 'Activado');
                 break;
-            case Authstat::INACTIVO:
+            case Estado::INACTIVO:
                 $td->setAttribute('title', 'Desactivado');
-                $td->setAttribute('class', self::CLASE_DESACTIVADO);
+                $span= $this->createElement("span");
+                $span->setAttribute('class', self::CLASE_DESACTIVADO);
+                $td->appendChild($span);
+                break;
+            default:
+                $td->removeAttribute('type');
+                $td->removeAttribute('name');
+                $td->removeAttribute('class');
+                break;
+        }
+        return $td;
+    }
+    private function armar_interruptor_pagar(DOMElement $td, $accion, $registro) {
+
+        switch ($registro[$accion['campo']]) {
+            case Estado::PAGADO:
+                $span= $this->createElement("span");
+                $span->setAttribute('class', self::CLASE_PAGADO);
+                $td->appendChild($span);
+                $td->setAttribute('title', 'Pagado');
+                $td->removeAttribute("data-nav");
+                $td->removeAttribute("type");
+                $td->removeAttribute("data-method");
+                break;
+            case Estado::ACTIVO:
+            case Estado::PARCIAL:
+            case Estado::PENDIENTE:
+                $td->setAttribute('title', 'No pagado');
+                $span= $this->createElement("span");
+                $span->setAttribute('class', self::CLASE_NO_PAGADO);
+                $td->appendChild($span);
+                break;
+            case Estado::INACTIVO:
+            case Estado::VENCIDO:
+                 $td->setAttribute('title', 'Desactivado');
+                $span= $this->createElement("span");
+                $span->setAttribute('class', self::CLASE_PROHIBIDO);
+//                $td->removeAttribute("data-nav");
+//                $td->removeAttribute("data-method");
+//                $td->setAttribute("data-nav","prestamos_otorgados");
+//                $td->setAttribute("data-method","home");
+                $td->appendChild($span);
                 break;
             default:
                 $td->removeAttribute('type');

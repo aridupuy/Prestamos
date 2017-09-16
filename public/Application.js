@@ -9,6 +9,9 @@ $(function(){
     
     load(0);
 });
+$(document).ready(function() {
+    $('.tabla').stacktable();
+});
 
 function load(nav){
     var listar=$("#listado").attr("name");
@@ -25,6 +28,14 @@ function load(nav){
 //        $("#sistema_admin").show();
 //        $("#sistema_medicos").hide();
 //    }
+    $("#generador").click(function(){
+        var pass=Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 30);
+        alert(pass);
+        $("#password").val(pass);
+    });
+    $(".mensaje_log").click(function (){
+        $(this).slideToggle( "slow" )
+    });
     $("#cerrar").click(function (e) {
         $(this).parent().hide();
     })
@@ -34,7 +45,7 @@ function load(nav){
         alert("miFormulario");
         if($('#miFormulario')[0].checkValidity() ){
             $(this).attr('type','button');
-            if($("[type='file']").size()=='1') file_link($(this).attr('data-nav'),$("#miFormulario [type='file']").eq(0).attr('data-nav'),$("#miFormulario [type='file']").eq(0).attr('data-method'));
+            if($("[type='file']").length=='1') file_link($(this).attr('data-nav'),$("#miFormulario [type='file']").eq(0).attr('data-nav'),$("#miFormulario [type='file']").eq(0).attr('data-method'));
             else link($(this).attr('data-nav'),$(this).attr('data-method'),'');    
         }
     });
@@ -42,7 +53,7 @@ function load(nav){
         alert("elFormModal");
         if($('#elFormModal')[0].checkValidity() ){
             $(this).attr('type','button');
-            if($("[type='file']").size()=='1') file_link($(this).attr('data-nav'),$("#elFormModal [type='file']").eq(0).attr('data-nav'),$("#elFormModal [type='file']").eq(0).attr('data-method'));
+            if($("[type='file']").length=='1') file_link($(this).attr('data-nav'),$("#elFormModal [type='file']").eq(0).attr('data-nav'),$("#elFormModal [type='file']").eq(0).attr('data-method'));
             else link_modal($(this).attr('data-nav'),$(this).attr('data-method'));    
             
         }
@@ -78,9 +89,17 @@ function load(nav){
     });
     escuchar_checkboxes();
     escuchar_mensaje_log();
-    escuchar_paginador();   
-}
+    escuchar_paginador();  
+     $(".mensaje_log").on('click', function (event) {
+        $(".mensaje_log").animate({'margin-left': '+=400'}, 250, 'linear', function (event) {
+            $(this).hide();
+        });
+
+    });
+    $(".selectpicker").selectpicker();
     
+}
+ 
 function link(nav,id,pagina_a_mostrar,$this=false){
     var checkboxes_string=obtener_checkboxes_sin_tildar();
     if($this!=false)
@@ -321,4 +340,28 @@ function obtener_checkboxes_sin_tildar_modal(){
         }
     });
     return string;
+}
+function generar_chart(ctx,tipo,label,color_borde,labels,data){
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: tipo,
+
+    // The data for our dataset
+    data: {
+        labels: labels,
+        datasets: [{
+            label: label,
+//            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: color_borde,
+            data: data,
+            borderWidth: 1
+        }]
+    },
+
+    // Configuration options go here
+    options: {
+    rotation: 1 * Math.PI,
+    circumference: 1 * Math.PI
+    }
+});
 }

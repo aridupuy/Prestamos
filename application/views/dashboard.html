@@ -1,0 +1,116 @@
+<form>
+    <div class=" ">
+        <div class="col-sm-offset-2 col-sm-3 cuadrado">
+            <div class="dashboard_graph grafico">
+
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h4>Ingresos por dia <small>Mes Actual</small></h4>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                    <canvas id="ganancias_mes" width="400" height="400"></canvas>
+
+                </div>
+
+
+            </div>
+
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <div class="col-sm-offset-2 col-sm-3 cuadrado">
+            <div class="dashboard_graph grafico">
+
+                <div class="row x_title">
+                    <div class="col-md-6 ">
+                        <h4>Egresos por dia <small>Mes Actual</small></h4>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 ">
+                    <canvas id="Flujo_de_caja" width="400" height="400"></canvas>
+
+                </div>
+
+
+            </div>
+
+            <!--<div class="clearfix"></div>-->
+        </div>
+        <div class="col-sm-offset-2 col-sm-3 cuadrado">
+            <div class="dashboard_graph grafico">
+
+                <div class="row x_title">
+                    <div class="col-md-6 ">
+                        <h4>test<small>Mes Actual</small></h4>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 ">
+                    <input type="text" class="dial" data-min="0" data-max="100" value="40" readOnly="true" angleArc ="180">
+                </div>
+
+
+            </div>
+
+            <!--<div class="clearfix"></div>-->
+        </div>
+    </div>
+    <input type="hidden" id="data-ingresos" >
+    <input type="hidden" id="labels-ingresos" >
+    <input type="hidden" id="type_chart-ingresos" >
+    <input type="hidden" id="data-egresos" >
+    <input type="hidden" id="labels-egresos" >
+    <input type="hidden" id="type_chart-egresos" >
+    <input type="hidden" id="data-nuevo" >
+    <input type="hidden" id="labels-nuevo" >
+    <input type="hidden" id="type_chart_nuevo" >
+
+    <style>
+        body{
+            background-color: #EDEDED;
+        }
+        .cuadrado{
+            position: relative;
+            height: auto;
+            background-color: white;
+            border : 1px solid white;
+            text-align: center;
+            /*padding: 2%;*/
+            box-shadow: 6px 3px 32px -4px;
+        }
+        .grafico {
+            margin-left: 0%;
+            margin-right: -27%;
+        }
+    </style>
+    <script>
+//        $(".dial").knob();
+//        $(".dial").trigger('configure',
+//        {
+//            "min":0,
+//            "max":100,
+//            "fgColor":"#FF0000",
+//            "skin":"tron",
+//            "cursor":false
+//        });
+        var ctx = document.getElementById('ganancias_mes').getContext('2d');
+        var array_ingresos= $("#data-ingresos").val().split(",");
+        var labels_ingresos= $("#labels-ingresos").val().split(",");
+        var tipo_ingresos=$("#type_chart-ingresos").val();
+        
+        var array_egresos= $("#data-egresos").val().split(",");
+        var labels_egresos= $("#labels-egresos").val().split(",");
+        var tipo_egresos=$("#type_chart-egresos").val();
+        
+        var array_nuevo= $("#data-nuevo").val().split(",");
+        var labels_nuevo= $("#labels-nuevo").val().split(",");
+        var tipo_nuevo=$("#type_chart_nuevo").val();
+        
+        generar_chart(ctx, tipo_ingresos, 'ingresos del mes por dia', 'rgb(1, 152, 117)', labels_ingresos, array_ingresos);
+        
+        var ctx = document.getElementById('Flujo_de_caja').getContext('2d');
+        generar_chart(ctx, tipo_egresos, 'Egresos del mes por dia', 'rgb(255, 99, 132)', labels_egresos, array_egresos);
+        
+        var ctx = document.getElementById('nuevo').getContext('2d');
+        generar_chart(ctx, tipo_nuevo, 'Maxima cantidad establecida', 'rgb(255, 99, 132)', labels_nuevo, array_nuevo);
+    </script>
+</form>

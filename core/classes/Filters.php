@@ -64,5 +64,14 @@ class Filters extends View{
 
 		return $div;
 	}
-
+        public function eliminar_campo($numero){
+            $inputs= $this->getElementsByTagName("input");
+            for($i=0;$i<$inputs->length;$i++){
+                if(($i+1)==$numero){
+                    $input=$inputs->item($i);
+//                    $input=new DOMNode();ss
+                    $input->parentNode->parentNode->removeChild($input->parentNode);
+                }
+            }
+        }
 }

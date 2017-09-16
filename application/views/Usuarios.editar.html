@@ -1,0 +1,40 @@
+<form id="miFormulario" autocomplete="off">
+    <page>
+        <header>
+            <title>Nuevo Cliente</title>
+        </header>
+        <div>
+            <h3 class="col-lg-offset-1">Usuario</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="row col-lg-offset-1">
+                <div class="col-sm-12">
+                    <div class="row col-lg-5 margin-left"> <span>Nombre de Usuario</span><input class="form-control col-lg-5" type="text" autocomplete="false" name="usuario" id="usuario" placeholder="Nombre de Usuario"></div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="row col-lg-5 margin-left"> <span>Password</span><input class="form-control col-lg-5" type="password" autocomplete="false" name="password" id="password" placeholder="Password"></div>
+                    <div class="btn btn-default" id="generador" value="">Generar Password</div>
+                </div>
+            </div>
+            <div class="row col-lg-10 margin-top">
+                <div class="col-sm-offset-5 col-sm-1">
+                    <input type="submit" data-nav="usuarios" data-method="crear_post" value="Aceptar" class="btn btn-primary">
+                </div>
+                <div class="col-sm-1 col-sm-offset-2 ">
+                    <input type="button" data-nav="usuarios" data-method="home" value="Cancelar" class="btn margin">
+                </div>
+            </div>
+        </div>
+    </page>
+</form>
+<script>
+    
+</script>
+<style>
+    .margin-left{
+        margin-left: 1%;
+    }
+    .margin-top{
+        margin-top: 1%;
+    }
+</style>

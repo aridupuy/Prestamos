@@ -50,6 +50,7 @@ abstract class Model {
             try {
                 $resultado=$DB->Connect(DB_CONNECT.":".DB_PORT, DB_USER, DB_PASS,DB_NAME);
             } catch (Exception $e) {
+                Logger::developper($e->getMessage());
                 $resultado=false;
             }
 ////            if($resultado AND false) Logger::all('Conexion establecida con la base de datos.');
@@ -93,6 +94,7 @@ abstract class Model {
             
         } catch (Exception $e) {
             $resultado=false;
+            Logger::developper($e->getMessage());
         }
         self::CompleteTrans();
 
@@ -150,7 +152,6 @@ abstract class Model {
             {   
                     $this->setId($parametros[$id_tabla]);
                     $parametros['id']=$this->get_id();
-                    
                     $resultado= $this->execute_insert($parametros);
                     if(!$resultado) $this->setId('');
                     if(get_class($this)!="Log")
@@ -167,7 +168,7 @@ abstract class Model {
                 Logger::log_tabla("Update",get_class($this),$parametros);
                 
         }
-        if($resultado) return $resultado;
+        if($resultado) { return $resultado;}
         return false;
     }
     public static function StartTrans(){
@@ -222,7 +223,6 @@ abstract class Model {
         self::StartTrans();
         try {
             $tabla=strtolower(static::$prefijo_tabla.get_called_class());
-//            var_dump($tabla);
             if(ACTIVAR_LOG_APACHE_DE_CONSULTAS_SQL) 
                 Logger::developper('INSERT '.$tabla.' VALUES '.static::$id_tabla.'='.$parametros['id'], 0);
             $tiempo_inicio=microtime(true);
@@ -234,6 +234,7 @@ abstract class Model {
 
         } catch (Exception $e) {
             $resultado=false;
+            error_log($e->getMessage());
         }
         self::CompleteTrans();
         if($resultado){

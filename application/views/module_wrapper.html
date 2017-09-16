@@ -1,0 +1,148 @@
+<div id="principal">
+    <head>
+        <style>
+            header.navbar-prestamos .navbar-inner{
+                width: 100%;
+            }
+
+        </style>
+    </head>
+
+    <div id="main1">
+        <header class="navbar navbar-static-top navbar-prestamos">
+            <div class="navbar-inner">
+                <div class="container">
+                    <h1 class="title">
+                        <span type="button" data-nav='main' data-method='home'>Prestamos</span>
+                    </h1>
+                    <div class="navbar-collapse collapse">
+                        <div class="container-fluid">
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <div class="fa fa-user icono-nav usuario" type="button" data-nav="main" data-method="user_logout" title="Cerrar sesión"></div>
+                                </li>
+                                <li>
+                                    <span id="usuario"></span>
+                                </li>
+                                <li >
+                                    <div class="loggout fa fa-power-off icono-nav" type="button" data-nav="main" data-method="user_logout" title="Cerrar sesión"></div>
+                                </li>
+                                <li id="side_menu">
+                                    <div  id="menu-button"class="loggout fa fa-bars icono-nav"  title="Menu"></div>
+
+                                </li>
+                            </ul>
+                            <!--<i class="fa fa-camera-retro"></i> fa-camera-retro-->
+                            <!--<div id="menu" class="menu"></div>-->
+                            <!--<div id="sesion" nav="main_controller.bootstrap.min.css" class="controlUsuario"></div>-->
+                            <!--<a href="" class="icono-nav fa fa-cloud-download"></a>-->
+                        </div>
+                    </div>
+                    <div class="rigth-sidebar">
+                        <div class="container">
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link active" data-nav='main' data-method='home' type="button">Inicio</span>
+                            </div>
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link" data-nav='prestamo' data-method='home' type="button">Realizar Nuevo Prestamo</span>
+                            </div>
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link" data-nav='cliente' data-method='crear_cliente' type="button">Nuevo Cliente</span>
+                            </div>
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link" data-nav='cliente' data-method='home' type="button">Clientes</span>
+                            </div>
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link" data-nav='prestamos_otorgados' data-method='home' type="button">Prestamos</span>
+                            </div>
+                            <div class="item-sidebar">
+                                <span href="#" class="nav-link" data-nav='usuarios' data-method='home' type="button">Usuarios</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>   
+        <div class="submenu" id="submenu">
+            <div class="menu">
+                <div class="item-menu">
+                    <a href="#" class="nav-link active" data-nav='main' data-method='home' >Inicio</a>
+                </div>
+                <div class="item-menu">
+                    <a href="#" class="nav-link" data-nav='prestamo' data-method='home' >Realizar Nuevo Prestamo</a>
+                </div>
+                <div class="item-menu">
+                    <a href="#" class="nav-link" data-nav='cliente' data-method='crear_cliente' >Nuevo Cliente</a>
+                </div>
+                <div class="item-menu">
+                    <a href="#" class="nav-link" data-nav='cliente' data-method='home' >Clientes</a>
+                </div>
+                <div class="item-menu">
+                    <a href="#" class="nav-link" data-nav='prestamos_otorgados' data-method='home' >Prestamos</a>
+                </div>
+                <div class="item-menu">
+                    <span href="#" class="nav-link" data-nav='usuarios' data-method='home' type="button">Usuarios</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<main class="col-lg-9 col-lg-offset-2 col-md-9 col-md-offset-1 main-class">
+    <section class="row text-center placeholders">
+        <div  >
+
+        </div>
+    </section>
+</main>
+<section id="modal">
+    <div id="ventana-modal" class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body col-lg-12">
+                    <div id="modal-body" class="row"></div>
+                </div>
+                <div class="modal-footer">
+                    <!--                        <button type="button" class="btn btn-primary">Guardar</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar </button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="debug-container"></div>
+<div class="footer"> ©Ariel Dupuy 2017</div>
+</body>
+</html>
+<script>
+ var estado=0;
+$(".rigth-sidebar").hide().animate({'right': '-550'});
+//$(".rigth-sidebar").children(".container").children(".item-sidebar").each( function () {
+//           $(this).hide();
+//    });
+//    
+    $("#menu-button").click(function (){
+//        alert(estado);
+    $(".rigth-sidebar").stop(true,true);
+        if(estado==0){
+//            animate({'right': '-400'}, 250, 'linear')
+            $(".rigth-sidebar").show().animate({'right': '-550'}).animate({'right': '0'}, 250, 'linear');
+         estado=1;
+     }
+         else{
+             $(".rigth-sidebar").animate({'right': '-550'}, 250, 'linear', function (event) {
+                 $(this).hide(1000);
+             });
+             estado=0;
+         }
+    
+    });
+</script>

@@ -94,7 +94,7 @@ trait trait_prestamo {
     }
 
     private function calcular_monto_cuota($monto, $interes, $cuotas) {
-        return ($monto * $interes) / $cuotas;
+        return ($monto+($monto * $interes) )/ $cuotas;
     }
 
     private function obtener_fecha_vto($cuotas, $cuota, $modalidad) {

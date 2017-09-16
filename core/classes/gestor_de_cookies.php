@@ -3,7 +3,6 @@
 class Gestor_de_cookies{
 	const ACTIVAR_PARCHE_TEMPORAL=false;
 	public static function set($id_usuario,$cookie_real=true){
-            print_r("cookie set");
                 $value=self::pre_cifrar($id_usuario);
 		$value=htmlentities($value);
 		if($cookie_real){

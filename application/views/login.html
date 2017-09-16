@@ -1,73 +1,36 @@
-
-
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<head>
-    <title>Prestamos</title>
-    <meta name="author" content="Ariel Eduardo Dupuy">
-    <link rel="icon" href="css/faviscon.ico" type="image/gif" sizes="16x16">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-    <!--<link rel="stylesheet" href="public/Font-Awesome/css/font-awesome.css">-->
-    <link rel="stylesheet" href="public/Application.css">
-    <link rel="stylesheet" href="public/Font-Awesome/css/font-awesome.css">
-    <script type="text/javascript" src="public/jquery-1.11.2.min.js"></script>
-    <!--<script src="public/select_bootstrap.js"></script>-->
-    <script src="public/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="public/Application.js"></script>
-    <script>
-
-    </script>
-</head>
-<body class="body">
-    <nav class="navbar navbar-default navbar-static-top blue">
-        <div class="container-fluid">
-            <!--<i class="fa fa-camera-retro"></i> fa-camera-retro-->
-            <div type="button" name="main_controller.main_menu" class="tituloWeb link" >Prestamos</div>
-            <div class="loggout fa fa-power-off icono-nav " type="button" data-nav="main" data-method="user_logout" title="Cerrar sesión"></div>
-        </div>
-    </nav>
-        <div class="col-lg-9">
-            <div id="main" >
-                <form  id="miFormulario">
-                    <i class="fa "></i>
-                    <div class="row">
-                        <div class="col_lg_6 cuadrado azul text-center">
-                            <div class="linea">
-                                <div class="linea">
-                                    <i class="fa fa-user-o fa-2x"></i><h3>Acceso a usuarios</h3>
-                                </div>
-                                <br>
-                                <div class="linea">
-                                    <input type="text" name="usuario" class="input-lg" placeholder="Usuario">
-                                </div>
-                            </div>
-                            <div class="linea">
-                                <div class="linea">
-                                    <!--<i class="fa fa-user-o fa-2x"></i>-->
-                                </div>
-                                <br>
-                                <div class="linea">
-                                    <input type="password" name="pass" class="input-lg" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="linea">
-                                <div class="linea">
-                                    <!--<i class="fa fa-user-o fa-2x"></i>-->
-                                </div>
-                                <br>
-                                <div class="linea">
-                                    <input type="submit" type="button" data-nav="main" data-method="login_post" name="prestamos" value="Login" class="tex">
-                                </div>
-                            </div>
-                        </div>
+<form id="miFormulario">
+    <div class="col-lg-9">
+        <i class="fa "></i>
+        <div class="row">
+            <div class="col_lg_6 cuadrado azul text-center">
+                <div class="linea">
+                    <div class="linea">
+                        <i class="fa fa-user-o fa-2x"></i><h3>Acceso a usuarios</h3>
                     </div>
-                </form>
+                    <br>
+                    <div class="linea">
+                        <input type="text" name="usuario" class="input-lg" placeholder="Usuario">
+                    </div>
+                </div>
+                <div class="linea">
+                    <div class="linea">
+                        <!--<i class="fa fa-user-o fa-2x"></i>-->
+                    </div>
+                    <br>
+                    <div class="linea">
+                        <input type="password" name="pass" class="input-lg" placeholder="Password">
+                    </div>
+                </div>
+                <div class="linea">
+                    <div class="linea">
+                        <!--<i class="fa fa-user-o fa-2x"></i>-->
+                    </div>
+                    <br>
+                    <div class="linea">
+                        <input type="submit" id="btn-loggin" data-nav="main" data-method="login_post" name="prestamos" value="Login" class="tex">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="debug-container"></div>
-    <div class="footer">© Ariel Dupuy 2017</div>
-</body>
-</html>
+</form>
