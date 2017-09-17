@@ -54,7 +54,7 @@ h1 span{
     
 }
 .item-menu{
-    display: inline-block;
+       display: inline-block;
     border-left: 1px solid #aba2a2;
     height: 100%;
     text-align: center;
@@ -62,9 +62,22 @@ h1 span{
     margin-bottom: auto;
     width: 11%;
     line-height: 2;
-    min-width: 16%;
+    min-width: 14%;
     overflow: hidden;
 }
+#contenedor_permisos{
+    display: block;
+    width: 100%;
+}
+.permiso{
+    width: 10%;
+    height: 100px;
+    border: 1px solid;
+    text-align: center;
+    line-height: 7;
+    display: inline-block;
+}
+
 a:visited {
     color: #000000 !important;
 }

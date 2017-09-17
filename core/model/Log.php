@@ -17,7 +17,7 @@ class Log extends Model{
     // public static $mensaje="";
     public static $prefijo_tabla="";
     public static $id_tabla="id_log";
-    public static $secuencia="sq_bo_log";
+    public static $secuencia="";
     private $id_log;
     private $tabla;
     private $accion;
@@ -88,16 +88,19 @@ class Log extends Model{
         $recordset=self::execute_select($sql,array(self::LOG_USUARIO),$num);
 //        print_r("hola");
 //        var_dump($recordset);
+        $mensaje=array();
         foreach( $recordset as $row ){
-            $log=new Log();
+            $log=new Log($row);
             $log->set_id_log($row['id_log']);
             if($row['posted']!=true){
                 $log->set_posted(true);
                 if($log->set()){
-                    return $row["accion"];
+                    $mensaje[]=$log->get_accion();
                 }
             }
         }
+        if(!empty($mensaje))
+            return $mensaje;
         return false;
     }
 

@@ -8,17 +8,17 @@ class Application {
     protected static $loggin;
     public static $usuario;
 
-    public function __construct($id_usuario_cookie,$wrapper) {
-        $objeto = self::get_instance($id_usuario_cookie,$wrapper);
+    public function __construct($id_usuario_cookie, $wrapper) {
+        $objeto = self::get_instance($id_usuario_cookie, $wrapper);
 
         return $objeto;
     }
 
-    public static function get_instance($id_usuario_cookie,$wrapper) {
-        
+    public static function get_instance($id_usuario_cookie, $wrapper) {
+
         if (!isset(self::$wrapper) or self::$wrapper === null) {
             self::$wrapper = new View("1.0", "utf-8");
-            if($wrapper!=null or $id_usuario_cookie==false){
+            if ($wrapper != null or $id_usuario_cookie == false) {
                 self::$wrapper->cargar_vista('views/Wrapper.html');
             }
 //            $main= self::$wrapper->getElemetById("main");
@@ -43,24 +43,23 @@ class Application {
         $this->guardar_variables($variables, $page);
         if (!self::$usuario and $method != "login_post") {
             $controller = new Controller_main();
-            return $this->view_login($controller->login($variables),$wrapper);
+            return $this->view_login($controller->login($variables), $wrapper);
         } elseif ((!self::$usuario and $method == "login_post")) {
             $controller = new Controller_main();
             if (!$controller->login_post($variables)) {
                 Logger::usuario("Autenticacion fallida", "Application");
                 return $this->view_login($controller->login($variables), !$wrapper);
-            } else{
+            } else {
                 $method = "home";
             }
-        }
-        elseif (self::$usuario and $method == "user_logout") {
+        } elseif (self::$usuario and $method == "user_logout") {
             $controller = new Controller_main();
             if (!$controller->user_logout($variables)) {
                 Logger::usuario("Autenticacion fallida", "Application");
                 print_r("Imposible salir");
                 $method = "home";
             } else {
-                return $this->view_login($controller->login($variables),$wrapper);
+                return $this->view_login($controller->login($variables), $wrapper);
             }
         }
         if ($method == "index")
@@ -74,28 +73,36 @@ class Application {
             $reflector = new ReflectionClass($clase);
             $herencia_correcta = $reflector->isSubclassOf('Controller');
         }
-       
-        if($clase=="Controller_main" and $method=="home"){
+
+        if ($clase == "Controller_main" and $method == "home") {
             $util = new $clase();
-            $vista=$util->Despachar($method,$variables);
-            return $this->render_template($vista,$wrapper);
+            $vista = $util->Despachar($method, $variables);
+            return $this->render_template($vista, $wrapper);
         }
         if ($clase_existe and $metodo_existe and $herencia_correcta) {
             $util = new $clase();
             $vista = $util->Despachar($method, $variables);
         }
 //        if ($wrapper) {
-            return $this->render_template($vista, $wrapper);
+        return $this->render_template($vista, $wrapper);
 //        }
 //        return $this->render($vista, $page, $lista);
     }
 
-    final protected function render_template(View $view,$wrapper) {
+    final protected function render_template(View $view, $wrapper) {
         $forms = $view->getElementsByTagName('form');
         $form = $forms->item(0);
-        if (Logger::ultimos_logs(1) !== false) {
-            $mensaje = $view->createElement('a', Logger::ultimos_logs(1));
-            $mensaje->setAttribute('title', Logger::ultimos_logs(10));
+        $logs = Logger::ultimos_logs(1);
+        if ($logs !== false) {
+            $mensaje = $view->createElement('a', $logs[0]);
+            $mensajes = Logger::ultimos_logs(10);
+            $salida = "";
+            if ($mensajes)
+                foreach ($mensajes as $msj) {
+                    $salida = $salida . " . " . $msj;
+                }
+
+            $mensaje->setAttribute('title', $salida);
             $mensaje->setAttribute('class', 'mensaje_log');
             $form->appendChild($mensaje);
         }
@@ -105,30 +112,29 @@ class Application {
         $hidden->setAttribute("name", "instancia");
         $hidden->setAttribute("id", "instancia");
         // $lista->setAttribute("style", "display:none");
-        if (Logger::ultimos_logs(1) !== false) {
-            $mensaje = $view->createElement('a', ucfirst(Logger::ultimos_logs(1)));
-            $mensaje->setAttribute('title', ucfirst(Logger::ultimos_logs(10)));
-            $mensaje->setAttribute('class', 'mensaje_log');
-            $form->appendChild($mensaje);
-        }
+//        if (Logger::ultimos_logs(1) !== false) {
+//            $mensaje = $view->createElement('a', ucfirst(Logger::ultimos_logs(1)));
+//            $mensaje->setAttribute('title', ucfirst(Logger::ultimos_logs(10)));
+//            $mensaje->setAttribute('class', 'mensaje_log');
+//            $form->appendChild($mensaje);
+//        }
         $hidden->setAttribute("value", self::$instancia);
         $form->appendChild($hidden);
-        $module_wrapper=new View();
+        $module_wrapper = new View();
         $module_wrapper->cargar_vista("views/module_wrapper.html");
 //        print_r($module_wrapper->saveHTML());C
-        
+
         if ($main) {
             $main->appendChild(self::$wrapper->importNode($module_wrapper->documentElement, true));
-        }
-        else{
+        } else {
             self::$wrapper->appendChild(self::$wrapper->importNode($module_wrapper->documentElement, true));
         }
-            if(isset(Application::$usuario)){
-                $span_usuario = self::$wrapper->getElementById("usuario");
-                $span_usuario->appendChild(self::$wrapper->createTextNode(Application::$usuario->get_usuario()));
-            }
-            $principal= self::$wrapper->getElementById("principal");
-            $principal->appendChild(self::$wrapper->importNode($form, true));
+        if (isset(Application::$usuario)) {
+            $span_usuario = self::$wrapper->getElementById("usuario");
+            $span_usuario->appendChild(self::$wrapper->createTextNode(Application::$usuario->get_usuario()));
+        }
+        $principal = self::$wrapper->getElementById("principal");
+        $principal->appendChild(self::$wrapper->importNode($form, true));
 //        }
         return self::$wrapper->saveHTML();
     }
@@ -175,7 +181,7 @@ class Application {
         $temp = array();
         if (isset($variables['data'])) {
             $explotado = explode('&', $variables['data']);
-            
+
             foreach ($explotado as $unaVariable) :
                 $array = explode('=', str_replace("undefined", "", $unaVariable));
                 unset($clave);
@@ -306,14 +312,14 @@ class Application {
         return true;
     }
 
-    public final function view_login(View $view,$wrapper) {
+    public final function view_login(View $view, $wrapper) {
 //        echo $_SERVER["REMOTE_PORT"];
         if (is_object($view) and get_class($view) == 'View') {
 //            if(self::$loggin==null){
-                $view_wrapper=new View();
-                $view_wrapper->cargar_vista("views/loggin_wrapper.html");
-                $main=$view_wrapper->getElementById("main1");
-                $main->appendChild($view_wrapper->importNode($view->documentElement,true));
+            $view_wrapper = new View();
+            $view_wrapper->cargar_vista("views/loggin_wrapper.html");
+            $main = $view_wrapper->getElementById("main1");
+            $main->appendChild($view_wrapper->importNode($view->documentElement, true));
             $forms = $view->getElementsByTagName('form');
             if ($forms->length == 1) {
                 $form = $forms->item(0);
@@ -328,19 +334,18 @@ class Application {
             }
             Logger::developper("Usuario no loqueado requiere iniciar sesion.");
 //            return ;
-            $view_html= $view_wrapper->saveHTML();
-            $loggin_wrapper=new View();
+            $view_html = $view_wrapper->saveHTML();
+            $loggin_wrapper = new View();
             $loggin_wrapper->cargar_vista("views/loggin_wrapper.html");
-            if($wrapper){
-                self::$wrapper=new View ();
+            if ($wrapper) {
+                self::$wrapper = new View ();
                 self::$wrapper->cargar_vista("views/Wrapper.html");
-                $main= self::$wrapper->getElementById("main");
-                $main->appendChild(self::$wrapper->importNode($loggin_wrapper->documentElement,true));
-                $contenedor= self::$wrapper->getElementById("contenedor");
-                $contenedor->appendChild(self::$wrapper->importNode($view->documentElement,true));
-                
-                $view_html= self::$wrapper->saveHTML();
-                
+                $main = self::$wrapper->getElementById("main");
+                $main->appendChild(self::$wrapper->importNode($loggin_wrapper->documentElement, true));
+                $contenedor = self::$wrapper->getElementById("contenedor");
+                $contenedor->appendChild(self::$wrapper->importNode($view->documentElement, true));
+
+                $view_html = self::$wrapper->saveHTML();
             }
 //           }
 //           else

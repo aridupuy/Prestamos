@@ -3,10 +3,21 @@
 class usupermiso extends Model{
     public static $id_tabla="id_usupermiso";
     public static $secuencia="";
+    public static $prefijo_tabla ="";
     private $id_usupermiso;
     private $id_usuario;
     private $id_permiso;
-    function get_id_usupermiso() {
+    private $id_estado;
+    
+    function get_id_estado() {
+        return $this->id_estado;
+    }
+
+    function set_id_estado($id_estado) {
+        $this->id_estado = $id_estado;
+    }
+
+        function get_id_usupermiso() {
         return $this->id_usupermiso;
     }
 

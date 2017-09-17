@@ -45,14 +45,27 @@ class Controller_usuarios extends Controller{
             Logger::all ("Estado actualizado correctamente.", get_class ());
         else
             Logger::all ("Error al actualizar.", get_class ());
-        print_r($usuario);
+//        print_r($usuario);
         return $this->home($variables);
     }
     public function nuevo(){
-        $this->view("views/usuario.editar.html");
+        $this->view->cargar_vista("views/Usuarios.editar.html");
         return $this->view;
     }
     public function crear_post($variables){
         
+        $usuario=new Usuario();
+        $usuario->set_id_estado(Estado::ACTIVO);
+        $usuario->set_usuario($variables["usuario"]);
+        $usuario->set_password($variables["password"]);
+        if($usuario->set()){
+            Logger::all("Usuario creado correctamente.", get_class($this));
+        }
+        else{
+            Logger::all("Usuario creado correctamente.", get_class($this));
+        }
+        return $this->home($variables);
     }
+   
+
 }

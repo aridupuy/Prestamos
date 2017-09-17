@@ -21,6 +21,11 @@ body {
         max-width: 101%;
         min-width: 100%;
 }
+#main1{
+    position: absolute;
+    left: 0;
+    right: 0;
+}
 .tarjeta-contenido {
     height: 85%;
     text-align: center;
@@ -160,20 +165,22 @@ input[type='submit'].margin, input[type='button'].margin {
     margin-right: 7%;
 }
 }
-
+.border{
+    border: 2px solid;
+}
 .rigth-sidebar {
-  position: fixed;
-    top: 51px;
+   position: absolute;
+    top: 62px;
     bottom: 0;
-    right: 0;
-    z-index: 1000;
+    left: 0;
+    z-index: 10000000;
     padding: 20px;
     overflow-x: auto;
     overflow-y: auto;
     border-right: 1px solid #eee;
     padding-left: 0;
     padding-right: 0;
-    height: 63%;
+    height: 74%;
     width: 39%;
     background-color: #019875;
     margin-top: -4px;
@@ -185,6 +192,8 @@ input[type='submit'].margin, input[type='button'].margin {
     margin-top: -6px;
     overflow-x: hidden;
     margin-right: 89px;
+    height: 100em;
+    width: 100%;
 }
 .item-sidebar {
     display: block;
